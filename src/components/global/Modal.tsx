@@ -36,7 +36,7 @@ export function Modal({ show, onHide, children, className }: Props) {
           <div className="relative z-50 flex w-11/12 flex-col items-center justify-center">
             <div
               className={twMerge(
-                "relative z-20 flex h-[85%] max-h-[85vh] w-[500px] flex-col items-center justify-start rounded-xl px-2 py-4",
+                "relative z-20 flex h-[85%] max-h-[85vh] w-[500px] flex-col items-center justify-start rounded-xl py-4",
                 className,
               )}
             >

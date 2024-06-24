@@ -11,9 +11,10 @@ interface NeedsChoiceProps {
 
 export function NeedsChoice({ setIsOpen }: NeedsChoiceProps) {
   const [selectedNeeds, setSelectedNeeds] = useState<number | null>(null);
+  const [selectModel, setSelectModel] = useState(false);
   const needs = [
     {
-      title: "Escrever Petição",
+      title: "Escrever Contratos",
       description:
         "Aplicação de Inteligência Artificial em Contratos e Petições, podendo criar, melhorar, gerar Insights e outros.",
     },
@@ -64,9 +65,16 @@ export function NeedsChoice({ setIsOpen }: NeedsChoiceProps) {
     },
   ];
 
-  const handleClick = (index: number) => {
-    setIsOpen(false);
-    setSelectedNeeds(index);
+  const handleClick = (title: string, index: number) => {
+    if (title === "Escrever Contratos" || title === "Escrever Petição") {
+      setSelectModel(true);
+      setIsOpen(false);
+      setSelectedNeeds(index);
+    } else {
+      setSelectModel(false);
+      setIsOpen(false);
+      setSelectedNeeds(index);
+    }
   };
 
   return (
@@ -75,7 +83,7 @@ export function NeedsChoice({ setIsOpen }: NeedsChoiceProps) {
         slideOptions={{ slidesPerView: 5.5, spaceBetween: 50 }}
         slides={needs.map((item, index) => (
           <button
-            onClick={() => handleClick(index)}
+            onClick={() => handleClick(item.title, index)}
             key={index}
             className={twMerge(
               "flex h-40 w-60 flex-col items-center justify-center gap-4 rounded-lg border border-dashed border-zinc-500 p-4 text-center",
@@ -88,7 +96,9 @@ export function NeedsChoice({ setIsOpen }: NeedsChoiceProps) {
           </button>
         ))}
       />
-      {selectedNeeds !== null && <HowItWorks steps={steps} />}
+      {selectedNeeds !== null && (
+        <HowItWorks steps={steps} selectModel={selectModel} />
+      )}
     </div>
   );
 }

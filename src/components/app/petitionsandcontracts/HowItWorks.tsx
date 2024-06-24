@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 import { ModalContracts } from "./ModalContracts";
 import { Carousel } from "@/components/global/Carousel";
 
@@ -10,10 +11,16 @@ interface HowItWorksProps {
     title: string;
     description: string;
   }[];
+  selectModel: boolean;
 }
 
-export function HowItWorks({ steps }: HowItWorksProps) {
+export function HowItWorks({ steps, selectModel }: HowItWorksProps) {
   const [open, setOpen] = useState(false);
+  const handleRightButtonClick = () => {
+    if (selectModel) {
+      return setOpen(true);
+    }
+  };
   return (
     <>
       <span className="text-5xl leading-8 tracking-[4px] text-primary-500">
@@ -39,13 +46,24 @@ export function HowItWorks({ steps }: HowItWorksProps) {
       <div className="grid w-2/3 grid-cols-5 gap-8">
         <div className="col-span-2 flex flex-col rounded-3xl bg-zinc-900">
           <div className="flex h-16 w-full rounded-t-3xl border-b border-b-white bg-zinc-800">
-            <div className="relative m-auto flex w-1/2 rounded-full bg-black p-1 font-semibold">
-              <div className="h-full w-7/12 items-center justify-center rounded-full bg-primary-700 p-1 text-center text-xs text-zinc-800">
-                Arquivo Único
-              </div>
-              <div className="h-full w-7/12 items-center justify-center rounded-full bg-transparent p-1 text-center text-xs text-primary-700">
-                Múltiplos
-              </div>
+            <div className="relative m-auto flex h-2/3 w-2/3 rounded-full bg-black p-1 font-semibold">
+              <button
+                className={twMerge(
+                  "flex h-full w-7/12 items-center justify-center rounded-full bg-primary-700 p-1 text-xs text-zinc-800",
+                  selectModel && "text-[10px] leading-3 tracking-tighter",
+                )}
+              >
+                {selectModel ? "Anexar Modelo" : "Arquivo Único"}
+              </button>
+              <button
+                onClick={handleRightButtonClick}
+                className={twMerge(
+                  "flex h-full w-7/12 items-center justify-center rounded-full bg-transparent p-1 text-xs text-primary-700",
+                  selectModel && "text-[10px] leading-3 tracking-tighter",
+                )}
+              >
+                {selectModel ? "Selecionar Modelo Pronto" : "Múltiplos"}
+              </button>
             </div>
           </div>
           <div className="flex h-96 w-full flex-col p-8">

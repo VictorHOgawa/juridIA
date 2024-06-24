@@ -6,7 +6,7 @@ export function Header() {
     <header className="relative flex h-16 w-full items-center justify-between bg-primary-700 p-2">
       <ChevronLeft size={40} />
       <Image
-        src="/logo.svg"
+        src="/Logos/logo.svg"
         alt="logo"
         width={300}
         className="absolute left-1/2 h-full -translate-x-1/2"
